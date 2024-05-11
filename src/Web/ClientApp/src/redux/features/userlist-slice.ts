@@ -17,6 +17,10 @@ const userListSlice = createSlice({
                     state = [...state, ...action.payload.payload]
                     break;
                 }
+                case "reset": {
+                    state = initialState
+                    break
+                }
                 default:
                     break
             }

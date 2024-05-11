@@ -9,17 +9,20 @@ namespace ManagementSystem.Infrastructure.Identity;
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        IAuthorizationService authorizationService,
+        RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
+        _roleManager = roleManager;
     }
 
     public async Task<string?> GetUserNameAsync(string userId)
@@ -77,5 +80,17 @@ public class IdentityService : IIdentityService
         var result = await _userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
+    }
+
+    public async Task<bool> AddToRoleAsync(string uid, string role)
+    {
+        var user = await _userManager.FindByIdAsync(uid);
+        if (user == null) return false;
+        if (_roleManager.Roles.All(x => x.Name != role))
+        {
+            await _roleManager.CreateAsync(new IdentityRole(role));
+        }
+        var result = await _userManager.AddToRoleAsync(user, role);
+        return result.Succeeded;
     }
 }

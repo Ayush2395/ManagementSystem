@@ -3,6 +3,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import UserList from "./components/UserList.tsx";
+import Edit from "./components/Edit.tsx"
 
 const AppRoutes = [
   {
@@ -20,6 +21,14 @@ const AppRoutes = [
   {
     path: "/users",
     element: <UserList />
+  },
+  {
+    path: "/edit/:uid",
+    element: <Edit buttonLabel="Update user" title="Edit user details" />
+  },
+  {
+    path: "/add-user",
+    element: <Edit buttonLabel="Create user" title="Add new user" />
   }
 ];
 

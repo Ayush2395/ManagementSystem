@@ -85,15 +85,28 @@ public class ApplicationDbContextInitialiser
             {
                 await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
+            if (!_context.UserProfiles.Any())
+            {
+                await _context.UserProfiles.AddAsync(new UserProfile
+                {
+                    Id = administrator.Id,
+                    FirstName = "Ayush",
+                    LastName = "Krishan Mandal",
+                });
+                await _context.SaveChangesAsync();
+            }
         }
 
         // Default data
         // Seed, if necessary
-        List<Country> countries = [
-            new (){CountryName="India",Status=true},
+        if (!_context.Countries.Any())
+        {
+            List<Country> countries = [
+                new (){CountryName="India",Status=true},
             new (){CountryName="United States of America",Status=true},
             ];
-        await _context.Countries.AddRangeAsync(countries);
-        await _context.SaveChangesAsync();
+            await _context.Countries.AddRangeAsync(countries);
+            await _context.SaveChangesAsync();
+        }
     }
 }

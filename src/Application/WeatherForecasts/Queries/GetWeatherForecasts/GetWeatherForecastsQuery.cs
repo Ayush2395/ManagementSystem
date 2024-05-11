@@ -1,5 +1,9 @@
-﻿namespace ManagementSystem.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using ManagementSystem.Application.Common.Security;
+using ManagementSystem.Domain.Constants;
 
+namespace ManagementSystem.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+
+[Authorize(Roles = $"{Roles.User}, {Roles.Administrator}")]
 public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 
 public class GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
