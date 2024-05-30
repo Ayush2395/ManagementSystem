@@ -1,4 +1,5 @@
 ﻿using ManagementSystem.Application.Common.Models;
+using ManagementSystem.Application.Users.Queries.GetUsers;
 
 namespace ManagementSystem.Application.Common.Interfaces;
 

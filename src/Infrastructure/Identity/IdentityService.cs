@@ -1,5 +1,6 @@
 using ManagementSystem.Application.Common.Interfaces;
 using ManagementSystem.Application.Common.Models;
+using ManagementSystem.Application.Users.Queries.GetUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
